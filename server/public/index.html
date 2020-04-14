@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--    <script src="https://cdn.bootcss.com/socket.io/2.1.1/socket.io.js"></script>-->
+    <title>Document</title>
+    <script src="javascripts/socket.io.js"></script>
+</head>
+
+<body>
+<div>
+    <div>
+        <div>
+            <h1>WebSocket chat,欢迎使用:</h1>
+        </div>
+        <div>
+            <label>输入用户名：</label>
+            <input type="text" id="name" />
+            <button id="conn">连接</button>
+            <label>输入聊天对象用户名：</label>
+            <input type="text" id="talkname" />
+        </div>
+        <div>
+            <div id="messages"></div>
+        </div>
+        <hr>
+        <div>
+            <input type="text" id="msg" />
+            <button id="send">发送</button>
+        </div>
+    </div>
+</div>
+<script>
+    var user = document.getElementById("name");
+    var talk = document.getElementById("talkname");
+    var btnConn = document.getElementById("conn");
+    var msgs = document.getElementById("messages");
+    var btnSend = document.getElementById("send");
+    var txtMsg = document.getElementById("msg");
+    var pattern = /^[\u4e00-\u9fa5]{2,10}$/;
+    btnConn.onclick = function () {
+        // if (!pattern.test(input.value)) {
+        //   alert("名称不能为空且必须为中文");
+        //   return;
+        // }
+        var ws = io('ws://localhost:3000');
+        ws.on('receiveMsg', function (data) {
+            console.log(data)
+            msgs.innerHTML += new Date().toUTCString() + ":"+data.from + data.msg + "<br>";
+        })
+
+        ws.on('connect', function (e) {
+            console.log("连接服务器成功");
+            ws.emit('login',{userid: user.value});
+        })
+        send.onclick = function (e) {
+            var txt = txtMsg.value;
+            txtMsg.value = '';
+            ws.emit('sendMsg',{from: user.value, to: talk.value, msg: txt});
+        }
+        document.onkeydown = function (e) {
+            e = e || window.event;
+            if (e.keyCode == 13) {
+                send.onclick();
+                return false;
+            }
+        }
+    }
+</script>
+</body>
+
+</html>

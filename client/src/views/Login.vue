@@ -1,6 +1,8 @@
 <template>
 <v-app>
-    <v-app-bar app><v-toolbar-title>登录页</v-toolbar-title></v-app-bar>
+    <v-app-bar app>
+        <v-toolbar-title>登录页</v-toolbar-title>
+    </v-app-bar>
     <v-content class="d-inline-flex text-center">
 
 
@@ -14,7 +16,6 @@
                         <v-btn  class="col-2" @click="login">登录</v-btn>
                         <v-btn @click="register">注册</v-btn>
 <!--                        <v-btn @click="getsession">get</v-btn>-->
-                        <v-btn @click="getName">getName</v-btn>
                     </v-card-text>
                 </v-form>
             </v-card-text>
@@ -38,16 +39,15 @@
             login(){
                 let vm=this
                 if (this.formData.username&&this.formData.password){
-                    this.$axios.post('users/login',{formData:this.formData})
+                    this.postRequest('users/login',{formData:this.formData})
                         .then(response=>{
-                            console.log(response.data)
-                            if (response.data.stutas==0){
+
                                 vm.$store.commit('setUsername',this.formData.username)
-                                console.log(response.data.token)
-                                window.sessionStorage.setItem('user',JSON.stringify({token:response.data.token}))
+                            console.log(response)
+                                window.localStorage.setItem('user',JSON.stringify({token:response.token}))
                                 vm.$store.commit('setLogin',true)
                                 vm.$router.push('/home')
-                            }
+
                         })
                         .catch(error=>{
                             console.log('服务器内部错误！')

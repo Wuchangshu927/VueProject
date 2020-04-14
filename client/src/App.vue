@@ -8,7 +8,6 @@
     watch:{
       '$route.name':function (val) {
         let  islogined=this.$store.state.isLogin
-        console.log(islogined)
 
         if (this.$route.name!="Register"){
           if (!islogined){

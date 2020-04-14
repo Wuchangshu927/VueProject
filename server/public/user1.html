@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <title>Socket.IO chat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; background-color:rgba(0,0,0,0.4);}
+        .box{ width: 700px;height: 500px; position: absolute; border: 1px solid #ccc;
+            box-shadow: #ccc 0 0 5px; left: 23%; top:10%; background-color: #fff;}
+        .header{ font-size: 15px; padding: 10px; border-bottom: 1px solid #ccc; }
+        .box .chatCon { overflow-y: scroll; height: 415px;}
+        form { background: #000; padding: 3px; position:absolute; bottom: 0; width: 100%; }
+        form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+        form button { width: 9%; background:#007aff; color: #fff; border: none; padding: 10px; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li{ border-radius: 5px; }
+        #me{ float: right; margin: 10px; padding: 5px; background-color: #eee; clear: both;}
+        #other{ float: left; margin: 10px; padding: 5px; background-color: #efe666; clear: both;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="header">IM聊天_1</div>
+    <div class="chatCon"><ul id="messages"></ul></div>
+    <form action="">
+        <input id="m" autocomplete="off" /><button>发送1</button>
+    </form>
+</div>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/socket.io/2.1.1/socket.io.js"></script>
+<script>
+    $(function () {
+
+        // 连接服务端
+        var socket = io('http://'+ document.domain +':3000');
+        $('form').submit(function(){
+            socket.emit('chatMessage2', $('#m').val(), 1);
+            $('#messages').append("<li id='me'>"+'自己：'+$('#m').val()+"</li>");
+            $('.chatCon').scrollTop($('.chatCon')[0].scrollHeight);
+            $('#m').val('');
+            return false;
+        });
+        socket.on('chatMessage1', function(msg){
+            $('#messages').append("<li id='other'>"+ msg +"</li>");
+            $('.chatCon').scrollTop($('.chatCon')[0].scrollHeight);
+        });
+    });
+</script>
+
+

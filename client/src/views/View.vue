@@ -85,8 +85,8 @@
                 // console.log(this.ws)
             },
             getData(){
-                this.$axios.get('users/usersData').then(response=>{
-                    console.log(response.data)
+                this.getRequest('users/usersData').then(response=>{
+                    console.log(response)
                 }).catch(error=>{
                     console.log('获取失败')
                 })

@@ -2,12 +2,12 @@
 <v-app>
     <v-app-bar app><v-toolbar-title>用户注册</v-toolbar-title></v-app-bar>
     <v-content class="d-inline-flex text-center">
-        <v-card  class=" text-center " style="left: 50%;top: 50%; transform: translate(-50%,-50%)">
-            <v-card-title>用户注册</v-card-title>
+
 
             <v-divider></v-divider>
             <v-card-text>
-                <v-form>
+
+                <v-form class="loginContainer">
                     <v-text-field label="用户名" v-model="formData.username"></v-text-field>
                     <v-text-field label="密码" v-model="formData.password" type="password"></v-text-field>
                     <v-card-text class="d-inline-block">
@@ -19,7 +19,7 @@
                     </v-card-text>
                 </v-form>
             </v-card-text>
-        </v-card>
+
     </v-content>
 </v-app>
 </template>
@@ -45,9 +45,7 @@
 
 
                         })
-                        .catch(error=>{
-                            console.log('服务器内部错误！')
-                        })
+
 
 
                 }
@@ -83,5 +81,26 @@
 </script>
 
 <style scoped>
+    .loginContainer {
+        border-radius: 15px;
+        background-clip: padding-box;
+        margin: 180px auto;
+        width: 350px;
+        padding: 35px 35px 15px 35px;
+        background: #ffffff;
+        border: 1px solid #eaeaea;
+        box-shadow: 0 0 25px #cac6c6;
 
+    }
+
+    .loginTitle {
+        margin: 0 auto 40px auto;
+        text-align: center;
+        color: #505458;
+    }
+
+    .loginRemember {
+        margin: 0 0 35px 35px;
+        text-align: left;
+    }
 </style>

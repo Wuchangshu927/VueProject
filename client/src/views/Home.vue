@@ -1,7 +1,10 @@
 <template>
   <v-app>
       <v-app-bar height="50" app>
-        <v-btn fab elevation="0" small @click="drawer=!drawer" >
+        <v-btn fab elevation="0"  size="20"
+               small
+               @click="drawer=!drawer"
+        >
           <v-icon>mdi-menu</v-icon>
 
         </v-btn>
@@ -15,6 +18,22 @@
       </v-app-bar>
     <v-navigation-drawer  v-model="drawer" width="200" mobile-break-point="640" app>
 
+      <v-list-item>
+
+        <v-list-item-content>
+
+          <v-list-item-title class="title">
+            <v-avatar size="30" class="mdi mdi-account-box"></v-avatar>
+            Application
+          </v-list-item-title>
+          <v-list-item-subtitle class="ml-3">
+            subtext
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
         <v-list>
           <v-list-item to="/home/view">
             <v-list-item-title >你好</v-list-item-title>
@@ -25,10 +44,12 @@
         </v-list>
     </v-navigation-drawer>
     <v-content>
-      1
       <router-view/>
     </v-content>
-    <v-footer class="text-right">1</v-footer>
+    <v-footer class="">
+      <v-spacer>g</v-spacer>
+
+    </v-footer>
   </v-app>
 </template>
 

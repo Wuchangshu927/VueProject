@@ -1,5 +1,5 @@
 <template>
-    <v-card>jniupghep</v-card>
+    <v-card>user</v-card>
 </template>
 
 <script>
