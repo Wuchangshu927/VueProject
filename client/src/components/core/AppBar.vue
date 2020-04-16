@@ -1,5 +1,5 @@
 <template>
-    <app-bar app>12</app-bar>
+    <app-bar app></app-bar>
 </template>
 
 <script>

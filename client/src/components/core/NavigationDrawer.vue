@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer>1</v-navigation-drawer>
+    <v-navigation-drawer></v-navigation-drawer>
 </template>
 
 <script>

@@ -1,25 +1,59 @@
 <template>
-<v-app>
-    <v-app-bar app>
-        <v-toolbar-title>登录页</v-toolbar-title>
-    </v-app-bar>
-    <v-content class="d-inline-flex text-center">
+<v-app class="loginPage">
+    <v-content class="">
+            <div  class="row loginContainer">
+                <div align="" class="col-sm-7" style="    box-sizing: border-box"
+                    v-if="$vuetify.breakpoint.mdAndUp">
+                    <div class="col-10" style="position: absolute; right:0px;color: white;">
+                        <div class=""><h1>Wcs</h1></div>
+                        <div class="mb-1"></div>
+                        <h4>欢迎使用 <strong> Wcs-管理平台</strong></h4>
+                        <v-content  class="dsc" >
+                            <v-toolbar-title  class="mdi mdi-arrow-right-circle dsc" v-for="item,i in description" :key="i">
+                            {{item}}
+                            </v-toolbar-title>
+
+                            <strong class="my-4">了解更多详情 <a href="#" target="blank">文档 &raquo;</a></strong>
+
+                        </v-content>
 
 
-            <v-divider></v-divider>
-            <v-card-text>
-<!--                <v-card-title class="">用户登录</v-card-title>-->
-                <v-form class="loginContainer">
-                    <v-text-field label="用户名" v-model="formData.username"></v-text-field>
-                    <v-text-field label="密码" v-model="formData.password" type="password"></v-text-field>
-                    <v-card-text class="d-inline-block">
-                        <v-btn  class="col-2" @click="login">登录</v-btn>
-                        <v-btn @click="register">注册</v-btn>
-<!--                        <v-btn @click="getsession">get</v-btn>-->
-                    </v-card-text>
-                </v-form>
-            </v-card-text>
+                    </div>
+                </div>
 
+
+                <div align="center" class="mr-sm-1 col-sm-4 " style="box-sizing: border-box">
+                    <v-form class="loginForm">
+                        <p align="center" class="mb-5" style="font-size: 16px;">Wcs-管理平台</p>
+                        <span class="pr"></span>
+                        <v-text-field  label="用户名" v-model="formData.username"
+                                       prepend-icon="mdi-account"
+                        ></v-text-field>
+
+                        <v-text-field label="密码" color="white"
+                                      prepend-icon='mdi-textbox-password'
+                                      v-model="formData.password"
+                                      type="password">
+                        </v-text-field>
+
+                        <v-card-text align="center" class="d-inline-block ">
+                            <v-btn elevation="0"
+                                   class="col-2 mr-1"
+                                   color='green'
+                                   @click="login">登录</v-btn>
+
+                            <v-btn class="col-2 ml-1"
+                                   color="blue"
+                                   elevation="0"
+                                   @click="register">注册</v-btn>
+                            <!--                        <v-btn @click="getsession">get</v-btn>-->
+                        </v-card-text>
+                    </v-form>
+                </div>
+            </div>
+            <div align="center"  class="footerC ma-0">
+                <div >&copy; 2018 All Rights Reserved. AGILE-BPM</div>
+            </div>
     </v-content>
 </v-app>
 </template>
@@ -32,7 +66,15 @@
                 formData:{
                     username:'wcs',
                     password:'123'
-                }
+                },
+                description:[
+                    '可以跨库构建任意数据结构的数据模型',
+                    '轻松的生成数据模型的容器-表单，并进行一个业务流转',
+                    '高效的流程任务处理能力',
+                    '稳健低耦合的流程引擎核心',
+                    '强大丰富的表单组件支持，快速构建所需的业务应用<',
+                    '多环境、多数据源真实复杂场景的支持',
+                    '基于基础组件,未来更多应用的可贡献性、可共享性']
             }
         },
         methods:{
@@ -71,27 +113,31 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .loginPage{
+        background-image: url('../assets/img/login-background.jpg');
+        background-size: cover;
+    }
     .loginContainer {
+        position: relative;
         border-radius: 15px;
         background-clip: padding-box;
-        margin: 180px auto;
+        margin: 200px auto;
+    }
+    .dsc{
+        font-size: 14px;
+    }
+    .loginForm {
+        border-radius: 15px;
+        background-clip: padding-box;
         width: 350px;
         padding: 35px 35px 15px 35px;
-        background: #ffffff;
-        border: 1px solid #eaeaea;
-        box-shadow: 0 0 25px #cac6c6;
-
+        background-color: rgba(38, 139, 234, 0.2);
+        border: 1px solid #268bea;
+        box-shadow: 0 0 25px #2578ca;
     }
 
-    .loginTitle {
-        margin: 0 auto 40px auto;
-        text-align: center;
-        color: #505458;
-    }
-
-    .loginRemember {
-        margin: 0 0 35px 35px;
-        text-align: left;
+    .footerC{
+        color: white;
     }
 </style>

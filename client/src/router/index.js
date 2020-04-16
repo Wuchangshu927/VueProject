@@ -5,6 +5,8 @@ import View from '../views/View.vue'
 import Login from '../views/Login.vue'
 import User from '../views/User.vue'
 import Register from '../views/Register.vue'
+import SendMail from '../views/SendMail.vue'
+
 import {Massage, Message} from 'element-ui'
 Vue.use(VueRouter)
 
@@ -24,6 +26,21 @@ const routes = [
                 path: 'user',
                 name: 'User',
                 component: User
+            },
+            {
+                path: 'map',
+                name: 'Map',
+                component: Map
+            },
+            {
+                path: 'user',
+                name: 'User',
+                component: User
+            },
+            {
+                path: 'mail',
+                name: 'Mail',
+                component: SendMail
             }
         ]
     },

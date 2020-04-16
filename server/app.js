@@ -6,7 +6,7 @@ var logger = require('morgan');
 var session = require('express-session');
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+// var io = require('socket.io')(server);
 var cors=require('cors')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,28 +22,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors())
-// app.all("*", function(req, res, next) {
-//   if (!req.get("Origin")) return next();
-//   // use "*" here to accept any origin
-//   // res. header('Access-Control-Allow-Credentials','true');
-//   // res.set("Access-Control-Allow-Origin", req.headers.origin);
-//   res.set("Access-Control-Allow-Origin", '*');
-//  // res.set("Access-Control-Allow-Credentials", "true");
-//   res.set("Access-Control-Allow-Methods", "GET, POST, PUT ,DELETE");
-//   res.set("Access-Control-Allow-Headers", "X-Requested-With, Content-Type,token");
-//   // res.set('Access-Control-Allow-Max-Age', 3600);
-//   if ("OPTIONS" === req.method) return res.send(200);
-//   next();
-// });
-
-
 //session配置
 app.use(session({
   cookie: { maxAge: 600000 },
-  secret: "asdf"
+  secret: "wcs"
 
 }))
-
 app.use(function(req, res, next){
   res.locals.user = req.session.user;
   next();
@@ -63,46 +47,46 @@ app.use(function(req, res, next) {
 var onlineUsers = {};
 //当前在线人数
 var onlineCount = 0;
-io.on('connection', function (conn) {
-  conn.on('login', function (obj) {
-    console.log('login', obj);
-    if (!onlineUsers.hasOwnProperty(obj.userid)) {
-      onlineUsers[obj.userid] = {
-        id: obj.userid,
-        conn: conn
-      };
-      onlineCount++;
-    }
-  });
-  conn.on('disconnect', function (data) {
-    console.log("关闭ing")
-    console.log(data)
-    console.log(conn.nsp)
-
-    if (onlineUsers.hasOwnProperty(conn.userid)) {
-      var obj = {
-        id: obj.userid,
-        conn: conn
-      };
-      delete onlineUsers[conn.userid];
-      onlineCount--;
-      console.log("关闭成功")
-    }
-  });
-  conn.on('sendMsg', function (data) {
-      console.log(data)
-    var rids = data.to.split(',')
-    for (let id of rids) {
-      if (id) {
-        var receiver = onlineUsers[id]
-        console.log(receiver)
-        if (receiver) {
-          let i=receiver.conn.emit('receiveMsg', {from:data.from,msg:data.msg})
-        }
-      }
-    }
-  })
-});
+// io.on('connection', function (conn) {
+//   conn.on('login', function (obj) {
+//     console.log('login', obj);
+//     if (!onlineUsers.hasOwnProperty(obj.userid)) {
+//       onlineUsers[obj.userid] = {
+//         id: obj.userid,
+//         conn: conn
+//       };
+//       onlineCount++;
+//     }
+//   });
+//   conn.on('disconnect', function (data) {
+//     console.log("关闭ing")
+//     console.log(data)
+//     console.log(conn.nsp)
+//
+//     if (onlineUsers.hasOwnProperty(conn.userid)) {
+//       var obj = {
+//         id: obj.userid,
+//         conn: conn
+//       };
+//       delete onlineUsers[conn.userid];
+//       onlineCount--;
+//       console.log("关闭成功")
+//     }
+//   });
+//   conn.on('sendMsg', function (data) {
+//       console.log(data)
+//     var rids = data.to.split(',')
+//     for (let id of rids) {
+//       if (id) {
+//         var receiver = onlineUsers[id]
+//         console.log(receiver)
+//         if (receiver) {
+//           let i=receiver.conn.emit('receiveMsg', {from:data.from,msg:data.msg})
+//         }
+//       }
+//     }
+//   })
+// });
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

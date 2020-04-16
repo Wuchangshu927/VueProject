@@ -58,29 +58,80 @@
 
 
       </v-app-bar>
-    <v-navigation-drawer  v-model="drawer" width="200" mobile-break-point="640" app>
-      <v-list-item>
-        <v-list-item-content>
+    <v-navigation-drawer
+            dark
+            v-model="drawer"
+            width="200"
+            mobile-break-point="640"
+            app
+    >
 
-          <v-list-item-title class="title">
-            <v-avatar size="30" class="mdi mdi-account-box"></v-avatar>
-            Application
-          </v-list-item-title>
-          <v-list-item-subtitle class="ml-3">
-            subtext
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+<!--      <template v-slot:img="props">-->
+<!--        <v-img-->
+<!--                :gradient="`to bottom, ${barColor}`"-->
+<!--                v-bind="props"-->
+<!--        />-->
+<!--      </template>-->
 
+      <v-divider class="mb-1" />
+
+      <v-list
+              dense
+              nav
+      >
+        <v-list-item>
+          <v-list-item-avatar
+                  class="align-self-center"
+                  color="white"
+                  contain
+          >
+            <v-img
+                    src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
+                    max-height="30"
+            />
+
+          </v-list-item-avatar>
+
+          <v-list-item-content height="">
+            <v-list-item-title class="display-1"
+            >Wcs</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
       <v-divider></v-divider>
-        <v-list>
-          <v-list-item v-for="item,i in menus"
-                       :key="i"
-                       :to=item.to>
-            <v-avatar :class="['mdi',item.icon]"></v-avatar>
-            <v-list-item-title >{{item.title}}</v-list-item-title>
-          </v-list-item>
-        </v-list>
+      <v-list
+              expand
+              nav
+      >
+        <div></div>
+        <template v-for="(item,i) in items">
+          <base-item-group
+                  v-if="item.children"
+                  :key="`group-${i}`"
+                  :item="item"
+          >
+            <!--  -->
+          </base-item-group>
+
+          <base-item
+                  v-else
+                  :key="`item-${i}`"
+                  :item="item"
+          />
+
+        </template>
+
+
+      </v-list>
+
+
+
+
+
+
+
+
+
 
 
         <template v-slot:append>
@@ -104,9 +155,8 @@
     <v-content>
       <router-view/>
 
-      <v-footer absolute class="">
-
-        footer
+      <v-footer absolute >
+        © 2018 All Rights Reserved. AGILE-BPM
       </v-footer>
     </v-content>
 
@@ -120,25 +170,75 @@ export default {
   name: 'Home',
   data(){
     return{
-    drawer:true,
-      menus:[{
-      title:"主页",
-        to:'/home',
-        icon:'mdi-home'
-      },
-      {
-        title:"页面",
-        to:'/home/view',
-        icon:'mdi-home'
-      }]
-  }}
+      drawer:true,
+      items: [
+        {
+          icon: 'mdi-view-dashboard',
+          title: '仪表盘',
+          to: '/home/view',
+        },
+        {
+          icon: 'mdi-account',
+          title: '用户',
+          to: '/home/user',
+        },
+        {
+          title: 'Mail',
+          icon: 'mdi-gmail',
+          to: '/home/mail',
+        },
+        // {
+        //   title: 'typography',
+        //   icon: 'mdi-format-font',
+        //   children: [{
+        //     title: 'typography',
+        //     icon: 'mdi-format-font',
+        //     to: '/components/typography',}]
+        // },
+        // {
+        //   title: 'icons',
+        //   icon: 'mdi-chart-bubble',
+        //   to: '/components/icons',
+        // },
+        // {
+        //   title: 'google',
+        //   icon: 'mdi-map-marker',
+        //   to: '/maps/google-maps',
+        // },
+        // {
+        //   title: 'notifications',
+        //   icon: 'mdi-bell',
+        //   to: '/components/notifications',
+        // },
+      ],
+      value:false
+
+    }
+  }
+
+
   ,methods:{
     logout(){
       this.$store.commit('setLogin',false)
       this.$router.push('/login')
+    },
+    mapItem (item) {
+      return {
+        ...item,
+        children: item.children ? item.children.map(this.mapItem) : undefined,
+        title: this.item.title,
+      }
+    },
+  },
+computed:{
+
+  profile () {
+    return {
+      avatar: true,
+      title: this.avatar,
     }
   },
-
+},
   components: {
   }
 }

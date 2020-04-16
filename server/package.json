@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./app.js"
+    "server": "node ./app.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "express-session": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.4.6",
     "socket.io": "^2.3.0"
   }
 }

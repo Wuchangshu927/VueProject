@@ -4,6 +4,7 @@ import router from './router/index'
 import store from './store'
 import vuetify from "./plugins/vuetify"
 import moment from "moment";
+import './plugins/base'
 
 
 import {postRequest} from "./utils/api";
