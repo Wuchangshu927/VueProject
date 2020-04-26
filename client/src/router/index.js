@@ -6,12 +6,13 @@ import Login from '../views/Login.vue'
 import User from '../views/User.vue'
 import Register from '../views/Register.vue'
 import SendMail from '../views/SendMail.vue'
+import QQLogin from '../views/QQLogin.vue'
 
 import {Massage, Message} from 'element-ui'
 Vue.use(VueRouter)
 
 const routes = [
-    {path: '/', redirect: '/login'},
+    {path: '/', redirect: '/qqlogin'},
     {
         path: '/home',
         name: 'Home',
@@ -48,6 +49,11 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login,
+    },
+    {
+        path: '/qqlogin',
+        name: 'QQlogin',
+        component: QQLogin,
     },
     {
         path: '/register',

@@ -36,17 +36,20 @@
                                       type="password">
                         </v-text-field>
 
-                        <v-card-text align="center" class="d-inline-block ">
-                            <v-btn elevation="0"
-                                   class="col-2 mr-1"
-                                   color='green'
-                                   @click="login">登录</v-btn>
+<!--                        <v-row>-->
+<!--                            <v-col>-->
+<!--                                <v-checkbox outlined  class="ma-0 " label="记住密码" v-model="remenber"></v-checkbox>-->
+<!--                            </v-col>-->
+<!--                            <v-col>-->
+<!--                                <a class=" ma-0">忘记密码</a>-->
+<!--                            </v-col>-->
 
-                            <v-btn class="col-2 ml-1"
-                                   color="blue"
-                                   elevation="0"
-                                   @click="register">注册</v-btn>
-                            <!--                        <v-btn @click="getsession">get</v-btn>-->
+<!--                        </v-row>-->
+                        <v-card-text align="center">
+                            <v-btn elevation="0"
+                                   class="col-12 mr-1"
+                                   color='blue'
+                                   @click="login">{{loginText}}</v-btn>
                         </v-card-text>
                     </v-form>
                 </div>
@@ -63,10 +66,12 @@
         name: "Login",
         data(){
             return{
+                remenber:false,
                 formData:{
                     username:'wcs',
                     password:'123'
                 },
+                loginText:'登录',
                 description:[
                     '可以跨库构建任意数据结构的数据模型',
                     '轻松的生成数据模型的容器-表单，并进行一个业务流转',
@@ -81,26 +86,24 @@
             login(){
                 let vm=this
                 if (this.formData.username&&this.formData.password){
+                    this.formData.password=this.Md5(this.formData.password)
+                    vm.loginText='正在登录...'
                     this.postRequest('users/login',{formData:this.formData})
                         .then(response=>{
-
+                                console.log(response)
                                 vm.$store.commit('setUsername',this.formData.username)
-                            console.log(response)
                                 window.localStorage.setItem('user',JSON.stringify({token:response.token}))
                                 vm.$store.commit('setLogin',true)
                                 vm.$router.push('/home')
 
                         })
                         .catch(error=>{
+                            vm.loginText='登录失败'
                             console.log('服务器内部错误！')
                         })
 
 
                 }
-            },
-            register(){
-                console.log('注册')
-                this.$router.push('/register')
             },
             getsession(){
                 let user=window.sessionStorage.getItem('user')
@@ -135,6 +138,9 @@
         background-color: rgba(38, 139, 234, 0.2);
         border: 1px solid #268bea;
         box-shadow: 0 0 25px #2578ca;
+    }
+    .QQLogin{
+        background-image: url("../assets/img/Connect_logo_5.png");
     }
 
     .footerC{

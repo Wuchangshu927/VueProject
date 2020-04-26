@@ -56,7 +56,11 @@
     },
         methods:{
             sendMail(){
+                if(this.mailMsg.to){
+                this.postRequest('users/')
 
+
+                }
             }
         }
     }

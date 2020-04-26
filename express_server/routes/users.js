@@ -1,12 +1,12 @@
 var express = require('express');
-var mailTransport = require('./config/Mail/mailOption')
+var mailOption = require('./config/Mail/mailOption')
 var createError = require('http-errors');
 var router = express.Router();
 const jwt = require('jsonwebtoken');  //用来生成token
 const nodemailer = require("nodemailer");
 let secret = 'abct123'
 let secret1 = 'abct12311'
-/* GET users listing. */
+/*登录*/
 router.route('/login')
     .get(function (req, res) {
         res.send('2');
@@ -21,7 +21,7 @@ router.route('/login')
             exp: Math.floor(Date.now() / 1000) + (20),
         }, secret)
         //req.session[req.body.formdata.username]=token
-        if (req.body.formData.username == 'wcs' && req.body.formData.password == '123') {
+        if (req.body.formData.username == 'wcs' && req.body.formData.password == '202cb962ac59075b964b07152d234b70') {
             res.send({
                 "status": 200,
                 "msg": "登陆成功",
@@ -35,6 +35,7 @@ router.route('/login')
         }
     });
 
+/*注销时间*/
 router.get('/logout', function (req, res) {
     req.session.user = null;
 });
@@ -55,7 +56,7 @@ router.post('/register', function (req, res) {
     res.send({user: 'wcs'})
 });
 
-function viled(req, res, error, success) {
+function verify(req, res, error, success) {
     jwt.verify(req.get('token'), secret, (err, decode) => {
         if (err) {
             error()
@@ -64,11 +65,11 @@ function viled(req, res, error, success) {
         }
     })
 }
-
+/*用户数据获取*/
 router.get('/usersData', function (req, res) {
     console.log(req.get('token'))
 
-    viled(req, res, function(){
+    verify(req, res, function(){
 
         res.send({
             "status": 401,
@@ -84,42 +85,15 @@ router.get('/usersData', function (req, res) {
 });
 
 
+
+/*邮件发送api*/
 router.post('/send', function (req, res, next) {
 
-// async..await is not allowed in global scope, must use a wrapper
-    async function main() {
-        // Generate test SMTP service account from ethereal.email
-        // Only needed if you don't have a real mail account for testing
-        let testAccount = await nodemailer.createTestAccount();
+    var x=mailOption('794100338@qq.com')
+    console.log('25252522')
+    console.log(x)
 
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: "smtp.qq.com",
-            secure: true, // true for 465, false for other ports
-            auth: {
-                user: '794100338@qq.com', // generated ethereal user
-                pass: 'osachfrnslfxbfbc' // generated ethereal password
-            }
-        });
-
-        // send mail with defined transport object
-        let info = await transporter.sendMail({
-            from: '"Fred Foo 👻" <794100338@qq.com>', // sender address
-            to: "271887584@qq.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
-            html: "<b>Hello world?</b>" // html body
-        });
-
-        console.log("Message sent: %s", info.messageId);
-        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-        // Preview only available when sending through an Ethereal account
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-    }
-
-    main().catch(console.error);
+    // send('125545').catch(console.error);
 });
 
 module.exports = router;

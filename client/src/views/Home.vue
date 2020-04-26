@@ -4,9 +4,8 @@
               id="app-bar"
               absolute
               app
-
               flat
-              height="60"
+              height="50"
       >
         <v-btn class="mr-3"
                elevation="1"
@@ -64,6 +63,8 @@
             width="200"
             mobile-break-point="640"
             app
+
+            permanent
     >
 
 <!--      <template v-slot:img="props">-->
@@ -79,22 +80,21 @@
               dense
               nav
       >
-        <v-list-item>
+        <v-list-item class="pa-0">
           <v-list-item-avatar
                   class="align-self-center"
                   color="white"
                   contain
           >
-            <v-img
+            <v-img class="pa-0"
                     src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-                    max-height="30"
+
             />
 
           </v-list-item-avatar>
 
-          <v-list-item-content height="">
-            <v-list-item-title class="display-1"
-            >Wcs</v-list-item-title>
+          <v-list-item-content class="pa-0" >
+            <v-list-item-title class="pa-0" style="font-size: 25px">Wcs</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -139,7 +139,7 @@
             to=""
           >
             <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
+              <v-icon>mdi-file-document</v-icon>
             </v-list-item-icon>
             <v-list-item-title>文档/更多</v-list-item-title>
 

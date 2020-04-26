@@ -44,7 +44,7 @@ axios.interceptors.response.use(success => {
     }
     return success.data;
 }, error => {
-    console.log(error)
+    console.log(error.response.status)
     if (error.response.status == 504 || error.response.status == 404) {
         Message.error({message: '服务器被吃了( ╯□╰ )'})
     } else if (error.response.status == 403) {

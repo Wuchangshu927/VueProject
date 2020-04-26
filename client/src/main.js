@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify"
 import moment from "moment";
 import './plugins/base'
 
+import md5 from 'js-md5'
 
 import {postRequest} from "./utils/api";
 import {postKeyValueRequest} from "./utils/api";
@@ -18,26 +19,8 @@ Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.getRequest = getRequest;
-
-
-
-
-
-
-
-
-
-
-
+Vue.prototype.Md5=md5;
 Vue.config.productionTip = false
-
-
-
-
-
-
-
-
 
 //时间过滤器
 Vue.filter('dateF', function (patter) {

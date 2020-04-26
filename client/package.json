@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "client": "vue-cli-service serve",
+    "client": "vue-cli-service serve --hot",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.1",
+    "js-md5": "^0.7.3",
     "moment": "^2.24.0",
     "sass": "^1.26.3",
     "vue": "^2.6.11",
