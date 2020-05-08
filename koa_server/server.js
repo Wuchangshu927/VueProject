@@ -9,12 +9,16 @@ const body_parser = require('koa-bodyparser')()
 const views = require('koa-views')(__dirname + '/views',{ extension: 'html' })
 const static_server = require('koa-static-server')({rootDir: 'static', rootPath: '/static'})
 app.use(cors())
+
 // 加载路由
 require('./routes/authorize')(router)
+
 require('./routes/login')(router)
 
 require('./routes/user')(router)
-
+require('./routes/Qr_Image')(router)
+require('./routes/pay')(router)
+require('./routes/rankData')(router)
 
 
 
@@ -24,11 +28,6 @@ app.use(views)
     .use(router.routes())
     .use(router.allowedMethods())
 
-
-
-
-
-
-
-
-app.listen(3000)
+const port =3000
+app.listen(port)
+console.log('程序已经运行！端口号：'+port)

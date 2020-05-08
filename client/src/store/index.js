@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {fa} from "vuetify/lib/locale";
+import { getToken, setToken, removeToken } from '@/utils/auth'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    token: getToken(),
+    name: '',
+    avatar: '',
+    roles: [],
     isLogin:false,
     username:'wcs',
     connected:false
@@ -34,5 +38,12 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+  }
+  ,getters:{
+
+    token: state => state.token,
+    //avatar: state => state.user.avatar,
+    name: state => state.user.name,
+    roles: state => state.user.roles
   }
 })

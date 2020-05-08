@@ -21,7 +21,7 @@ router.route('/login')
             exp: Math.floor(Date.now() / 1000) + (20),
         }, secret)
         //req.session[req.body.formdata.username]=token
-        if (req.body.formData.username == 'wcs' && req.body.formData.password == '202cb962ac59075b964b07152d234b70') {
+        if (req.body.formData.username == 'admin' && req.body.formData.password == '202cb962ac59075b964b07152d234b70') {
             res.send({
                 "status": 200,
                 "msg": "登陆成功",

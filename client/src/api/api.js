@@ -1,13 +1,14 @@
 import axios from 'axios'
 import {Message} from 'element-ui';
-import router from '../router/index'
+import router from '../router'
+import BaseUrl from '../plugins/baseUrl'
 
 let token = '';
 axios.defaults.withCredentials = false;
 axios.defaults.timeout=1000*60
 axios.defaults.headers.common['token'] = token;
 //后端基础api
-axios.defaults.baseURL = 'http://127.0.0.1:3000';
+axios.defaults.baseURL = BaseUrl;
 // 添加请求拦截器，在请求头中加
 axios.interceptors.request.use(config => {
     console.log(localStorage.getItem('user'))

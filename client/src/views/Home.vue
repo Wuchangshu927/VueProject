@@ -5,7 +5,7 @@
               absolute
               app
               flat
-              height="50"
+              height="75"
       >
         <v-btn class="mr-3"
                elevation="1"
@@ -112,29 +112,16 @@
           >
             <!--  -->
           </base-item-group>
-
           <base-item
                   v-else
                   :key="`item-${i}`"
                   :item="item"
           />
-
         </template>
-
 
       </v-list>
 
-
-
-
-
-
-
-
-
-
-
-        <template v-slot:append>
+      <template v-slot:append>
           <v-list-item
             to=""
           >
@@ -147,13 +134,11 @@
           </v-list-item>
         </template>
 
-
-
-
-
     </v-navigation-drawer>
     <v-content>
+      <setting></setting>
       <router-view/>
+
 
       <v-footer absolute >
         © 2018 All Rights Reserved. AGILE-BPM
@@ -165,7 +150,7 @@
 
 <script>
 // @ is an alias to /src
-
+import setting from './Setting/index'
 export default {
   name: 'Home',
   data(){
@@ -183,33 +168,30 @@ export default {
           to: '/home/user',
         },
         {
-          title: 'Mail',
+          title: '邮件',
           icon: 'mdi-gmail',
           to: '/home/mail',
         },
-        // {
-        //   title: 'typography',
-        //   icon: 'mdi-format-font',
-        //   children: [{
-        //     title: 'typography',
-        //     icon: 'mdi-format-font',
-        //     to: '/components/typography',}]
-        // },
-        // {
-        //   title: 'icons',
-        //   icon: 'mdi-chart-bubble',
-        //   to: '/components/icons',
-        // },
-        // {
-        //   title: 'google',
-        //   icon: 'mdi-map-marker',
-        //   to: '/maps/google-maps',
-        // },
-        // {
-        //   title: 'notifications',
-        //   icon: 'mdi-bell',
-        //   to: '/components/notifications',
-        // },
+        {
+          title: '决策树',
+          icon: 'mdi-arrow-decision-outline',
+          to: '/home/decisiontree',
+        },
+        {
+          title: '表格',
+          icon: 'mdi-table',
+          to: '/home/table',
+        },
+        {
+          title: '选项卡',
+          icon: 'mdi-tab',
+          to: '/home/tab',
+        },
+          {
+          title: '排行',
+          icon: 'mdi-tab',
+          to: '/home/rank',
+        }
       ],
       value:false
 
@@ -240,6 +222,7 @@ computed:{
   },
 },
   components: {
+    setting
   }
 }
 </script>

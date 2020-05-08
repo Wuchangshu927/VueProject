@@ -30,21 +30,23 @@
                                        prepend-icon="mdi-account"
                         ></v-text-field>
 
-                        <v-text-field label="密码" color="white"
-                                      prepend-icon='mdi-textbox-password'
-                                      v-model="formData.password"
-                                      type="password">
-                        </v-text-field>
+                        <v-text-field
+                                :append-icon="show? 'mdi-eye' : 'mdi-eye-off'"
+                                :rules="[rules.required, rules.min]"
+                                :type="show ? 'text' : 'password'"
+                                name="input-10-2"
+                                prepend-icon='mdi-textbox-password'
+                                label="密码"
+                                hint="At least 3 characters"
+                                v-model="formData.password"
+                                @click:append="show =!show"
+                        ></v-text-field>
+                        <v-row>
+                            <v-col>
+                                <v-checkbox outlined  class="ma-0 " label="记住密码" v-model="remenber"></v-checkbox>
+                            </v-col>
 
-<!--                        <v-row>-->
-<!--                            <v-col>-->
-<!--                                <v-checkbox outlined  class="ma-0 " label="记住密码" v-model="remenber"></v-checkbox>-->
-<!--                            </v-col>-->
-<!--                            <v-col>-->
-<!--                                <a class=" ma-0">忘记密码</a>-->
-<!--                            </v-col>-->
-
-<!--                        </v-row>-->
+                        </v-row>
                         <v-card-text align="center">
                             <v-btn elevation="0"
                                    class="col-12 mr-1"
@@ -66,12 +68,21 @@
         name: "Login",
         data(){
             return{
+
+                show: false,
+                rules: {
+                    required: value => !!value || 'Required.',
+                    min: v => v.length >= 3 || 'Min 3 characters',
+
+                },
+
                 remenber:false,
                 formData:{
                     username:'wcs',
                     password:'123'
                 },
                 loginText:'登录',
+                pwdType: 'password',
                 description:[
                     '可以跨库构建任意数据结构的数据模型',
                     '轻松的生成数据模型的容器-表单，并进行一个业务流转',
@@ -85,10 +96,11 @@
         methods:{
             login(){
                 let vm=this
-                if (this.formData.username&&this.formData.password){
-                    this.formData.password=this.Md5(this.formData.password)
+                let userInfo=vm.formData
+                if (userInfo.username&&userInfo.password){
+                    userInfo.password=this.Md5(userInfo.password)
                     vm.loginText='正在登录...'
-                    this.postRequest('users/login',{formData:this.formData})
+                    this.postRequest('users/login',{formData:userInfo})
                         .then(response=>{
                                 console.log(response)
                                 vm.$store.commit('setUsername',this.formData.username)
@@ -118,7 +130,7 @@
 
 <style scoped lang="scss">
     .loginPage{
-        background-image: url('../assets/img/login-background.jpg');
+        background-image: url('../../assets/img/login-background.jpg');
         background-size: cover;
     }
     .loginContainer {
@@ -140,7 +152,7 @@
         box-shadow: 0 0 25px #2578ca;
     }
     .QQLogin{
-        background-image: url("../assets/img/Connect_logo_5.png");
+        background-image: url("../../assets/img/Connect_logo_5.png");
     }
 
     .footerC{

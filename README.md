@@ -8,4 +8,6 @@ client 为前端项目
 技术栈
 vue,vue-router,vuex,axios,websocket,node-express ,cors,node-koa koa-cors element-ui,sass
 
+## install
 
+ npm i

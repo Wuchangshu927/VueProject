@@ -1,18 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import View from '../views/View.vue'
-import Login from '../views/Login.vue'
+import Dashboard from '../views/Dashboard/index.vue'
+import Login from '../views/Login/index.vue'
 import User from '../views/User.vue'
 import Register from '../views/Register.vue'
 import SendMail from '../views/SendMail.vue'
 import QQLogin from '../views/QQLogin.vue'
+import DecisionTree from '../views/DecisionTree/index'
+import Table from '../views/Table/index'
+import Tab from '../views/Tab/index'
+import Rank from '../views/Rank/index'
+
+import NProgress from 'nprogress' // Progress 进度条
+import 'nprogress/nprogress.css'// Progress 进度条样式
+
 
 import {Massage, Message} from 'element-ui'
+import store from "../store";
 Vue.use(VueRouter)
 
 const routes = [
-    {path: '/', redirect: '/qqlogin'},
+    {path: '/', redirect: '/login'},
     {
         path: '/home',
         name: 'Home',
@@ -20,8 +29,8 @@ const routes = [
         children: [
             {
                 path: 'view',
-                name: 'View',
-                component: View
+                name: 'Dashboard',
+                component: Dashboard
             },
             {
                 path: 'user',
@@ -34,14 +43,29 @@ const routes = [
                 component: Map
             },
             {
-                path: 'user',
-                name: 'User',
-                component: User
-            },
-            {
                 path: 'mail',
                 name: 'Mail',
                 component: SendMail
+            },
+            {
+                path: 'decisiontree',
+                name: 'DecisionTree',
+                component: DecisionTree
+            },
+            {
+                path: 'table',
+                name: 'Table',
+                component: Table
+            },
+            {
+                path: 'tab',
+                name: 'Tab',
+                component: Tab
+            },
+            {
+                path: 'rank',
+                name: 'Rank',
+                component: Rank
             }
         ]
     },
@@ -65,39 +89,58 @@ const routes = [
 const router = new VueRouter({
     routes
 })
-router.beforeEach()
-//export default router
-
-
-// import Vue from 'vue';
-// import Router from 'vue-router';
-// import login from '@/components/login';
-// import home from '@/components/home';
-// Vue.use(Router);
-// const router = new Router(
-//     {
-//         routes: [
-//             { path: '/', redirect: '/login' },
-//             { path: '/login', name: 'login', component: login },
-//             { path: '/home', name: 'home', component: home }
-//             ]});
+const whiteList = ['/login'] // 不重定向白名单
 // 导航守卫
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 router.beforeEach((to, from, next) => {
+    NProgress.start()
+    // let token = JSON.parse(localStorage.getItem('user'));
+    // console.log(token)
+    // if (token) {
+    //     if (to.path === '/login') {
+    //         next({path:'/home'});
+    //         NProgress.done()
+    //     }
+    //     else{
+    //         next()
+    //     }
+    // }else{
+    //     if (whiteList.indexOf(to.path) !== -1) {
+    //         next()
+    //     } else {
+    //         Message.error({massage:"你尚未登录！"})
+    //
+    //         next('/login')
+    //         NProgress.done()
+    //     }
+    // }
+
+
     if (to.path === '/login') {
         next();
     } else {
         let token = JSON.parse(localStorage.getItem('user'));
         if (token === 'null' || token === '') {
-          //  Message.error({message: success.data.msg})
-            Message.error({massage:"你尚未登录！"})
-            setTimeout(function () {
-                next('/login');
-            },6000)
+            if (whiteList.indexOf(to.path) !== -1) {
+                next()
+            } else {
+
+                //  Message.error({message: success.data.msg})
+                Message.error({massage: "你尚未登录！"})
+                setTimeout(function () {
+                    next('/login');
+                }, 6000)
+            }
 
         } else {
             next();
         }
     }
 });
+
+
+router.afterEach(() => {
+    NProgress.done() // 结束Progress
+})
+
 export default router;

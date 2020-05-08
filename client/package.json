@@ -1,5 +1,5 @@
 {
-  "name": "vuetifyproject",
+  "name": "Vue_System",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,13 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "d3": "^5.16.0",
     "element-ui": "^2.13.1",
+    "js-cookie": "^2.2.1",
     "js-md5": "^0.7.3",
+    "mockjs": "^1.1.0",
     "moment": "^2.24.0",
+    "nprogress": "^0.2.0",
     "sass": "^1.26.3",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
