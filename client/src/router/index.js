@@ -11,6 +11,7 @@ import DecisionTree from '../views/DecisionTree/index'
 import Table from '../views/Table/index'
 import Tab from '../views/Tab/index'
 import Rank from '../views/Rank/index'
+import File from '../views/File'
 
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
@@ -66,6 +67,10 @@ const routes = [
                 path: 'rank',
                 name: 'Rank',
                 component: Rank
+            },{
+                path: 'file',
+                name: 'File',
+                component: File
             }
         ]
     },

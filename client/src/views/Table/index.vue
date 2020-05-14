@@ -36,7 +36,7 @@
                     show-select
                     class="elevation-1"
                     sort-by="calories"
-                    items-per-page="10"
+                    :search="search"
             >
                 <template v-slot:top>
                     <v-toolbar flat color="white">
@@ -126,6 +126,7 @@
     export default {
         name: "index",
         data: () => ({
+            search:'',
             dialog: false,
             headers: [
                 {
@@ -177,8 +178,11 @@
             let vm = this
             this.getRequest('tableData').then(res => {
 
-                console.log(res)
-                vm.desserts = res
+               // console.log(res)
+                vm.desserts=vm.normalData(res)
+
+             //   console.log(vm.desserts)
+                //vm.desserts = res
 
             })
         },
@@ -258,7 +262,14 @@
                     },
                 ]
             },
+            normalData(data){
+                for (let i =1;i<=data.lenght;i++){
+                    data[i][`${i}`]=i
+                    console.log(data[i])
 
+                }
+                return data
+            },
             editItem(item) {
                 this.editedIndex = this.desserts.indexOf(item)
                 this.editedItem = Object.assign({}, item)

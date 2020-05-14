@@ -191,6 +191,10 @@ export default {
           title: '排行',
           icon: 'mdi-tab',
           to: '/home/rank',
+        },{
+          title: '文件',
+          icon: 'mdi-tab',
+          to: '/home/file',
         }
       ],
       value:false

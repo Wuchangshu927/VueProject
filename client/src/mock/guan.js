@@ -72,13 +72,7 @@ export default {
     },
     tableData:function(){
         var list=[]
-        var is_default = 1;
         for (var i=1;i<500;i++) {
-            if(i == 2){
-                is_default = 2;
-            }else{
-                is_default = 1;
-            }
             list.push(Mock.mock({
                 id:i,
                 name:Mock.Random.cname(),
@@ -114,5 +108,16 @@ export default {
             }
             return temp
         }
+    },
+    login:function(){
+            let temp={
+                code: 200,
+                message: "登陆成功",
+                roles: ['admin','users'],
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoid…zNjl9.Fb84HqULk9kidOw6XfUymmtCMnCc2NZFoHfW7o0lFaE"
+            }
+
+                return temp
+
     },
 }

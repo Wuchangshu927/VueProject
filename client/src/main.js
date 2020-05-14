@@ -21,6 +21,7 @@ Vue.prototype.postKeyValueRequest = postKeyValueRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 Vue.prototype.getRequest = getRequest;
+
 Vue.prototype.Md5=md5;
 
 Vue.config.productionTip = true

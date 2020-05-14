@@ -1,5 +1,5 @@
 module.exports = function(router) {
-    router.get('/', login)
+    router.get('/login', login)
     router.get('/home/:access_token', home)
     router.get('/proxy', proxy)
     router.get('/home', home)
